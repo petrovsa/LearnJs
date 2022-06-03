@@ -1,9 +1,4 @@
-const firstName = 'Serg';
-const job = 'Developer'
-const birthDay = 1978;
-const year = 2022;
-
-const serg = "I'm " + firstName + ", a " + (year - birthDay) + " year old " + job + "!";
-const serg2 = `I'm ${firstName} , a ${year - birthDay} year old ${job}!`
-console.log(serg);
-console.log(serg2);
+const arr = [1,[2,3],7];
+[a,b,c] = arr;
+const arr2 = [a,...b,c];
+console.log(arr2);
