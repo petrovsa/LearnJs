@@ -21,29 +21,31 @@ const bills = [22, 295, 176, 440, 37, 105, 10, 1100, 86, 52];
 const tips = [];
 const total = [];
 const calcTip = (billValue) => {
-    const tip = (300 >= billValue) && (billValue >= 50) ? billValue*0.15 : billValue*0.20;
-    tips.push(tip);
-    const totalCalc = billValue + tip;
-    total.push(totalCalc);
-    return tip, totalCalc;
-}
+  const tip =
+    300 >= billValue && billValue >= 50 ? billValue * 0.15 : billValue * 0.2;
+  tips.push(tip);
+  const totalCalc = billValue + tip;
+  total.push(totalCalc);
+  return tip, totalCalc;
+};
 
-for (let i = 0; i < bills.length; i++ ) {
-    calcTip(bills[i]);
+for (let i = 0; i < bills.length; i++) {
+  calcTip(bills[i]);
 }
 
 console.log(tips);
+
 console.log(total);
 
 const calcAverage = (arr) => {
-// let average = 0;
-let sum = 0;
-for (let j = 0; j < arr.length; j++) {
+  // let average = 0;
+  let sum = 0;
+  for (let j = 0; j < arr.length; j++) {
     sum += arr[j];
-}
-const average = sum/arr.length;
-return average;
-}
+  }
+  const average = sum / arr.length;
+  return average;
+};
 
 console.log(calcAverage(total));
 
