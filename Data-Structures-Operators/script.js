@@ -84,16 +84,16 @@ console.log(addNumbers(...x)); //33
 restaurant.pizzaIngridients("oregano", "calarano", "italiano");
 
 //Short circuits ||
-restaurant.greatMenu = 23;
-const result = restaurant.greatMenu ? restaurant.greatMenu : 10;
-console.log(result);
+// restaurant.greatMenu = 23;
+// const result = restaurant.greatMenu ? restaurant.greatMenu : 10;
+// console.log(result);
 
-const result2 = restaurant.greatMenu || 15;
-console.log(result2);
+// const result2 = restaurant.greatMenu || 15;
+// console.log(result2);
 
-restaurant.greatMenu = false;
-const result3 = restaurant.greatMenu ?? 77;
-console.log(result3);
+// restaurant.greatMenu = false;
+// const result3 = restaurant.greatMenu ?? 77;
+// console.log(result3);
 
 // New operators in ES2021
 
@@ -110,8 +110,30 @@ const rest2 = {
 // rest2.numberGuests = rest2.numberGuests ?? 10;
 // rest1.owner = rest1.owner || "Santi Clokori";
 
-rest2.numberGuests ||= 10; // instead reapiting
-rest1.owner ||= "Santi Clokori";
+// rest2.numberGuests ||= 10; // instead reapiting
+// rest1.owner ||= "Santi Clokori";
 
-console.log(rest1);
-console.log(rest2);
+// console.log(rest1);
+// console.log(rest2);
+
+const days = ["mon", "thu", "widn", "tu", "fri", "sat", "sun"];
+for (let day of days) {
+  console.log(restaurant.openingHours[day]?.open ?? "closed");
+}
+
+console.log(restaurant.order?.(0, 1) ?? "Method upsent");
+console.log(restaurant.orderMy?.(0, 1) ?? "Method upsent");
+
+for (const d of Object.keys(restaurant.openingHours)) {
+  console.log(d);
+}
+
+for (const d2 of Object.values(restaurant.openingHours)) {
+  console.log(d2);
+}
+const entries = Object.entries(restaurant.openingHours);
+
+//Destructuring of Objects
+for (const [key, { open, close }] of entries) {
+  console.log(`I have ${key} with value open: ${open} and close: ${close}`);
+}
