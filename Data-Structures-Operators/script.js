@@ -137,3 +137,75 @@ const entries = Object.entries(restaurant.openingHours);
 for (const [key, { open, close }] of entries) {
   console.log(`I have ${key} with value open: ${open} and close: ${close}`);
 }
+
+//Set
+const orderSet = new Set(["Pizza", "Garling", "Pizza"]);
+console.log(orderSet);
+
+orderSet.add("Pasta");
+orderSet.add("Pasta");
+console.log(orderSet);
+console.log(orderSet.size);
+console.log(orderSet.has("Buter"));
+console.log(orderSet.has("Pizza"));
+orderSet.delete("Garling");
+console.log(orderSet);
+// orderSet.clear();
+console.log(orderSet);
+
+for (const order of orderSet) {
+  console.log(order);
+}
+
+let arrMy = [1, 2, 3, 2, 4, 3, 5, 6, 7, 8, 7, 6, 0];
+console.log(arrMy);
+const arrSet = [...new Set(arrMy)];
+console.log(arrSet);
+//Ьфз
+
+const city = new Map();
+city.set("name", "Mukachevo");
+city.set(1, "Mira");
+city.set(2, "Duhnovucha");
+
+console.log(city.set(3, "Chehova"));
+city
+  .set("categories", ["Italian", "Pizzeria", "Vegetarian", "Organic"])
+  .set("open", 11)
+  .set("close", 23);
+console.log(city);
+
+console.log(city.get("categories"));
+
+const languages = new Map([
+  ["question", "How do you prefer programming Language&"],
+  [1, "Java"],
+  [2, "JavaScript"],
+  [3, "C++"],
+  [4, "Python"],
+  ["correct", 2],
+  [true, "Correct"],
+  [false, "Wrong"],
+]);
+
+console.log(languages);
+
+//Conver Object to Map
+
+// const opening = new Map(Object.entries(restaurant.openingHours));
+// console.log(opening);
+
+console.log(languages.get("question"));
+
+for (const [key, value] of languages) {
+  if (typeof key === "number") {
+    console.log(`Answer ${key}: ${value}`);
+  }
+}
+
+const answer = Number(prompt("How is number of js?"));
+console.log(languages.get(languages.get("correct") === answer));
+
+//Conver Map to Array
+const langArray = [...languages];
+console.log(langArray);
