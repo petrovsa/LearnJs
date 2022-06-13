@@ -209,3 +209,27 @@ console.log(languages.get(languages.get("correct") === answer));
 //Conver Map to Array
 const langArray = [...languages];
 console.log(langArray);
+
+//Strings
+
+const correctTo = function (str) {
+  const lowerCase = str.toLowerCase();
+  const resultString = lowerCase[0].toUpperCase() + lowerCase.slice(1);
+  console.log(resultString);
+};
+
+correctTo("jOhNas");
+correctTo("pETROV");
+correctTo("liverPOOL");
+
+const capitalazeStr = function (str) {
+  const arrStr = str.split(" ");
+  let newStr = [];
+  for (let name of arrStr) {
+    newStr.push(name[0].toUpperCase() + name.slice(1));
+  }
+  const myString = newStr.join(" ");
+  console.log(myString);
+};
+capitalazeStr("petrov sergey anatolyevich");
+capitalazeStr("petrova victoriya sereevna");
