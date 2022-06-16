@@ -61,6 +61,7 @@ const inputLoanAmount = document.querySelector(".form__input--loan-amount");
 const inputCloseUsername = document.querySelector(".form__input--user");
 const inputClosePin = document.querySelector(".form__input--pin");
 
+// Display discounts
 const displayMovements = function (movements) {
   containerMovements.innerHTML = "";
   movements.forEach(function (mov, idx) {
@@ -76,8 +77,34 @@ const displayMovements = function (movements) {
     containerMovements.insertAdjacentHTML("afterbegin", html);
   });
 };
+//Print balance
+// const calcPrintBalance = function (users) {
+//   users.map((user) => {
+//     user.balance = user.movements.reduce((acc, name) => acc + name, 0);
+//     labelBalance.textContent = `${user.balance}€`;
+//   });
+// };
+const calcPrintBalance = function (movements) {
+  const balance = movements.reduce((acc, name) => acc + name, 0);
+  labelBalance.textContent = `${balance}€`;
+};
 
+// Transform user name to login name
+const userTransform = function (users) {
+  users.map(
+    (user) =>
+      (user.username = user.owner
+        .split(" ")
+        .map((name) => name.toLowerCase().at(0))
+        .join(""))
+  );
+};
+
+userTransform(accounts);
 displayMovements(account1.movements);
+calcPrintBalance(account1.movements);
+console.log(accounts);
+
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
