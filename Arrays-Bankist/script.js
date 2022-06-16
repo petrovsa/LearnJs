@@ -101,31 +101,48 @@ const userTransform = function (users) {
 };
 
 //Calc Display Summary
-const calcDisplaySummary = function (movements) {
-  const depositesSummary = movements
+const calcDisplaySummary = function (account) {
+  const depositesSummary = account.movements
     .filter((deposit) => deposit > 0)
     .reduce((acc, deposit) => acc + deposit, 0);
   labelSumIn.textContent = `${depositesSummary}€`;
   const withdrawal = Math.abs(
-    movements
+    account.movements
       .filter((withdrawal) => withdrawal <= 0)
       .reduce((acc, withdrawal) => acc + withdrawal, 0)
   );
   labelSumOut.textContent = `${withdrawal}€`;
-  const interest = movements
+  const interest = account.movements
     .filter((deposit) => deposit > 0)
-    .map((deposit) => (deposit * 1.2) / 100)
+    .map((deposit) => (deposit * account.interestRate) / 100)
     .filter((int) => int >= 1)
     .reduce((acc, deposit) => acc + deposit, 0);
   labelSumInterest.textContent = `${interest}€`;
 };
 
+//Event handler LOGIN
+let currentAccount;
+btnLogin.addEventListener("click", function (e) {
+  e.preventDefault();
+  currentAccount = accounts.find(
+    (account) =>
+      account?.username === inputLoginUsername.value &&
+      account?.pin === Number(inputLoginPin.value)
+  );
+  inputLoginUsername.value = "";
+  inputLoginPin.value = "";
+  //Display UI and message
+  labelWelcome.textContent = `Welcome ${currentAccount.owner}`;
+  containerApp.style.opacity = 1;
+  //Display movements
+  displayMovements(currentAccount.movements);
+  //Display balance
+  calcPrintBalance(currentAccount.movements);
+  // Display summary
+  calcDisplaySummary(currentAccount);
+});
+
 userTransform(accounts);
-displayMovements(account1.movements);
-calcPrintBalance(account1.movements);
-console.log(accounts);
-const num = calcDisplaySummary(account1.movements);
-console.log(num);
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
