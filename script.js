@@ -23,3 +23,18 @@ const maximum = movements.reduce(
   movements[0]
 );
 console.log(maximum);
+
+const arr = [1, 2, [[3, 4], [5, 6], 7], 8, 9];
+const result = arr.flatMap((el) => el).flat();
+console.log(result);
+
+movements.sort((a, b) => a - b);
+
+console.log(movements);
+
+const x = new Array(7);
+x.fill((Math.random() + 1).toFixed(2));
+console.log(x);
+
+const y = Array.from({ length: 7 }, () => (Math.random() + 1).toFixed(2));
+console.log(y);
