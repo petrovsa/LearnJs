@@ -38,3 +38,9 @@ console.log(x);
 
 const y = Array.from({ length: 7 }, () => (Math.random() + 1).toFixed(2));
 console.log(y);
+
+const now = new Date();
+console.log(new Intl.DateTimeFormat("en-GB").format(now));
+
+const locale = navigator.language;
+console.log(locale);
