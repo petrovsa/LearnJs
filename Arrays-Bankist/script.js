@@ -72,21 +72,33 @@ const inputTransferAmount = document.querySelector(".form__input--amount");
 const inputLoanAmount = document.querySelector(".form__input--loan-amount");
 const inputCloseUsername = document.querySelector(".form__input--user");
 const inputClosePin = document.querySelector(".form__input--pin");
+// Logout Timer
+const logoutTimer = function () {
+  let time = 30;
+  const tick = () => {
+    const min = String(Math.trunc(time / 60)).padStart(2, 0);
+    const sec = String(time % 60).padStart(2, 0);
+    labelTimer.textContent = `${min}:${sec}`;
+    if (time === 0) {
+      clearInterval(timer);
+      hideUI();
+    }
+    time--;
+  };
+  tick();
+  const timer = setInterval(tick, 1000);
+  return timer;
+};
 
 //format Date
 const formatDate = function (date, locale) {
   const calcPeriodDate = (date2, date1) =>
-    Math.abs(Math.round((date2 - date1) / (10000 * 60 * 60 * 24)));
+    Math.abs(Math.round((date2 - date1) / (1000 * 60 * 60 * 24)));
   const periodDate = calcPeriodDate(new Date(), date);
 
   if (periodDate === 0) return "Today";
   if (periodDate === 1) return "Yestarday";
   if (periodDate <= 7) return `${periodDate} days ago`;
-
-  // const day = `${date.getDate()}`.padStart(2, 0);
-  // const year = date.getFullYear();
-  // const month = `${date.getMonth() + 1}`.padStart(2, 0);
-  // return `${day}/${month}/${year}`;
   return new Intl.DateTimeFormat(locale).format(date);
 };
 //formatCurrency
@@ -191,7 +203,7 @@ const hideUI = function () {
 };
 
 //Event handler LOGIN
-let currentAccount;
+let currentAccount, timer;
 btnLogin.addEventListener("click", function (e) {
   e.preventDefault();
   currentAccount = accounts.find(
@@ -204,6 +216,8 @@ btnLogin.addEventListener("click", function (e) {
   //Display UI and message
   labelWelcome.textContent = `Welcome ${currentAccount.owner}`;
   containerApp.style.opacity = 1;
+  if (timer) clearInterval(timer);
+  timer = logoutTimer();
   //Update UI
   updateUI(currentAccount);
 });
@@ -227,6 +241,9 @@ btnTransfer.addEventListener("click", function (e) {
     recieverAccount.movementsDates.push(new Date().toISOString());
     //Update UI
     updateUI(currentAccount);
+    //Reset timer
+    clearInterval(timer);
+    timer = logoutTimer();
   }
   inputTransferAmount.value = "";
   inputTransferTo.value = "";
@@ -235,16 +252,22 @@ btnTransfer.addEventListener("click", function (e) {
 // Loan
 btnLoan.addEventListener("click", function (e) {
   e.preventDefault();
+
   const loanAmount = Math.floor(inputLoanAmount.value);
   if (
     currentAccount.movements.some(
       (mov) => mov > 0 && mov >= loanAmount * 0.1 && loanAmount > 0
     )
   ) {
-    currentAccount.movements.push(loanAmount);
-    // add Loan Date
-    currentAccount.movementsDates.push(new Date().toISOString());
-    updateUI(currentAccount);
+    setTimeout(function () {
+      currentAccount.movements.push(loanAmount);
+      // add Loan Date
+      currentAccount.movementsDates.push(new Date().toISOString());
+      updateUI(currentAccount);
+      //Reset timer
+      clearInterval(timer);
+      timer = logoutTimer();
+    }, 3000);
   }
   inputLoanAmount.value = "";
 });
