@@ -84,17 +84,34 @@ const renderCountry = function (data, className = "") {
 // getNeighbourData("germany");
 // getNeighbourData("ukraine");
 
-const getCountryData = function (country) {
-  const request = fetch(`https://restcountries.com/v2/name/${country}`);
-  request
-    .then((result) => result.json())
-    .then((data) => {
-      renderCountry(data[0]);
-      const neighbore = data[0].borders?.[0];
-      if (!neighbore) return;
-      return fetch(`https://restcountries.com/v2/alpha/${neighbore}`);
-    })
-    .then((result2) => result2.json())
-    .then((data2) => renderCountry(data2, "neighbour"));
+// const getCountryData = function (country) {
+//   const request = fetch(`https://restcountries.com/v2/name/${country}`);
+//   request
+//     .then((result) => result.json())
+//     .then((data) => {
+//       renderCountry(data[0]);
+//       const neighbore = data[0].borders?.[0];
+//       if (!neighbore) return;
+//       return fetch(`https://restcountries.com/v2/alpha/${neighbore}`);
+//     })
+//     .then((result2) => result2.json())
+//     .then((data2) => renderCountry(data2, "neighbour"));
+// };
+// getCountryData("portugal");
+
+// const lotteryDraw = new Promise(function (resolve, reject) {
+//   console.log("Start Lottery drow");
+//   setTimeout(function () {
+//     if (Math.random() >= 0.5) resolve("You WIN!");
+//     else reject(new Error("You loss your money"));
+//   }, 2000);
+// });
+// lotteryDraw.then((res) => console.log(res)).catch((err) => console.error(err));
+
+const getPosition = function () {
+  return new Promise(function (resolve, reject) {
+    navigator.geolocation.getCurrentPosition(resolve, reject);
+  });
 };
-getCountryData("portugal");
+
+getPosition().then((pos) => console.log(pos));
