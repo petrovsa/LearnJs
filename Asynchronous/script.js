@@ -108,10 +108,49 @@ const renderCountry = function (data, className = "") {
 // });
 // lotteryDraw.then((res) => console.log(res)).catch((err) => console.error(err));
 
-const getPosition = function () {
-  return new Promise(function (resolve, reject) {
-    navigator.geolocation.getCurrentPosition(resolve, reject);
+// const getPosition = function () {
+//   return new Promise(function (resolve, reject) {
+//     navigator.geolocation.getCurrentPosition(resolve, reject);
+//   });
+// };
+
+// getPosition().then((pos) => console.log(pos));
+
+// const whereAmI = async function (country) {
+//   const res = await fetch(`https://restcountries.com/v2/name/${country}`);
+//   console.log(res);
+//   const [data] = await res.json();
+//   console.log(data);
+// };
+// whereAmI("ukraine");
+// console.log("FIRST");
+const getJSON = function (url, errorMessage = "Something wrong") {
+  return fetch(url).then((res) => {
+    if (!res.ok) throw new Error(`${errorMessage} (${res.status})`);
+    return res.json();
   });
 };
 
-getPosition().then((pos) => console.log(pos));
+// const get3Countries = async function (c1, c2, c3) {
+// const [data1] = await getJSON(`https://restcountries.com/v2/name/${c1}`);
+// const [data2] = await getJSON(`https://restcountries.com/v2/name/${c2}`);
+// const [data3] = await getJSON(`https://restcountries.com/v2/name/${c3}`);
+// console.log([data1.capital, data2.capital, data3.capital]);
+//   const data = await Promise.all([
+//     getJSON(`https://restcountries.com/v2/name/${c1}`),
+//     getJSON(`https://restcountries.com/v2/name/${c2}`),
+//     getJSON(`https://restcountries.com/v2/name/${c3}`),
+//   ]);
+//   const res = data.map((d) => d[0].capital);
+//   console.log(res);
+// };
+
+// get3Countries("portugal", "usa", "ukraine");
+
+Promise.any([
+  Promise.resolve("Success"),
+  Promise.reject("Error"),
+  Promise.resolve("Finished"),
+])
+  .then((res) => console.log(res))
+  .catch((err) => console.log(err));
